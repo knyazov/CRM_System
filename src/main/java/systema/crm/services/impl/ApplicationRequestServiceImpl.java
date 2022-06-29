@@ -45,6 +45,11 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
     }
 
     @Override
+    public boolean isExist(Long id) {
+        return appRepository.existsById(id);
+    }
+
+    @Override
     public List<Courses> getAllCourses() {
         return coursesRepository.findAll();
     }

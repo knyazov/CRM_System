@@ -31,6 +31,8 @@ public class Controllers {
     @GetMapping(value = "/details/{id}")
     private String details(Model model,
                            @PathVariable(name = "id") Long id) {
+        model.addAttribute("allCourses", appRequestService.getAllCourses());
+        model.addAttribute("request", appRequestService.getRequestById(id));
         return "details";
     }
 
@@ -54,6 +56,26 @@ public class Controllers {
             applicationRequest.setCommentary(commentary);
             applicationRequest.setPhone(phone);
             applicationRequest.setCourseName(courseName);
+            applicationRequest.setHandled(false);
+
+            appRequestService.saveRequest(applicationRequest);
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    private String delete(@PathVariable(name = "id") Long id) {
+        appRequestService.deleteRequest(id);
+        return "redirect:/";
+    }
+
+    @PostMapping(value = "/trueRequest/{id}")
+    private String trueRequestDoPost(@PathVariable(name = "id") Long id) {
+
+        if (appRequestService.isExist(id)) {
+            ApplicationRequest applicationRequest = appRequestService.getRequestById(id);
+            applicationRequest.setHandled(true);
 
             appRequestService.saveRequest(applicationRequest);
         }

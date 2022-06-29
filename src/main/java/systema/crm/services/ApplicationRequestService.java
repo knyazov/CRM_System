@@ -11,6 +11,7 @@ public interface ApplicationRequestService {
     ApplicationRequest getRequestById(Long id);
     ApplicationRequest saveRequest(ApplicationRequest applicationRequest);
     void deleteRequest(Long id);
+    boolean isExist(Long id);
 
     List<Courses> getAllCourses();
     Courses addCourses(Courses course);
