@@ -24,7 +24,7 @@ public class Controllers {
     @GetMapping(value = "/")
     private String indexPage(Model model) {
         model.addAttribute("allRequests", appRequestService.getAllRequests());
-        model.addAttribute("allCourses", coursesRepository.findAll());
+        model.addAttribute("allCourses", appRequestService.getAllCourses());
         return "index";
     }
 
@@ -36,7 +36,7 @@ public class Controllers {
 
     @GetMapping(value = "/addRequest")
     private String addRequestDoGet(Model model) {
-        model.addAttribute("allCourses", coursesRepository.findAll());
+        model.addAttribute("allCourses", appRequestService.getAllCourses());
         return "addRequest";
     }
 
@@ -45,8 +45,9 @@ public class Controllers {
                                     @RequestParam(name = "courseName_id") Long courseName_id,
                                     @RequestParam(name = "phone") String phone,
                                     @RequestParam(name = "commentary") String commentary) {
-        if (appRequestService.isExistCourse(courseName_id)) {
-            Courses courseName = coursesRepository.getReferenceById(courseName_id);
+
+        if (coursesRepository.existsById(courseName_id)) {
+            Courses courseName = appRequestService.getCourse(courseName_id);
 
             ApplicationRequest applicationRequest = new ApplicationRequest();
             applicationRequest.setUserName(userName);

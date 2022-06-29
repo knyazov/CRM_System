@@ -3,6 +3,7 @@ package systema.crm.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import systema.crm.entities.ApplicationRequest;
+import systema.crm.entities.Courses;
 import systema.crm.repositories.ApplicationRequestRepository;
 import systema.crm.repositories.CoursesRepository;
 import systema.crm.services.ApplicationRequestService;
@@ -30,7 +31,7 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
 
     @Override
     public ApplicationRequest getRequestById(Long id) {
-        return appRepository.getReferenceById(id);
+        return appRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -44,12 +45,22 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
     }
 
     @Override
-    public boolean isExist(Long id) {
-        return appRepository.existsById(id);
+    public List<Courses> getAllCourses() {
+        return coursesRepository.findAll();
     }
 
     @Override
-    public boolean isExistCourse(Long id) {
-        return coursesRepository.existsById(id);
+    public Courses addCourses(Courses course) {
+        return coursesRepository.save(course);
+    }
+
+    @Override
+    public Courses saveCourses(Courses course) {
+        return coursesRepository.save(course);
+    }
+
+    @Override
+    public Courses getCourse(Long id) {
+        return coursesRepository.findById(id).orElse(null);
     }
 }
