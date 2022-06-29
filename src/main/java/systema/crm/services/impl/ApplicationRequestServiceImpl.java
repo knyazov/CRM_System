@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import systema.crm.entities.ApplicationRequest;
 import systema.crm.repositories.ApplicationRequestRepository;
+import systema.crm.repositories.CoursesRepository;
 import systema.crm.services.ApplicationRequestService;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
 
     @Autowired
     private ApplicationRequestRepository appRepository;
+
+    @Autowired
+    private CoursesRepository coursesRepository;
 
     @Override
     public ApplicationRequest addRequest(ApplicationRequest applicationRequest) {
@@ -42,5 +46,10 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
     @Override
     public boolean isExist(Long id) {
         return appRepository.existsById(id);
+    }
+
+    @Override
+    public boolean isExistCourse(Long id) {
+        return coursesRepository.existsById(id);
     }
 }

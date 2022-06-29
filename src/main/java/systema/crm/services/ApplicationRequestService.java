@@ -12,4 +12,6 @@ public interface ApplicationRequestService {
     void deleteRequest(Long id);
 
     boolean isExist(Long id);
+
+    boolean isExistCourse(Long id);
 }
