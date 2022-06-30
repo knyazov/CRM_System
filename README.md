@@ -6,7 +6,8 @@ We create a mini application for processing CRM system requests. To implement th
 
 It turns out on the main page we will have a list of all applications. Applications themselves will be added via the application form.
 The main page will look like this (All applications):
-![image](https://user-images.githubusercontent.com/98006856/176593991-278727cc-2a90-4aef-936b-0f89859912f4.png)
+![image](https://user-images.githubusercontent.com/98006856/176594608-ab3e89f9-b48e-46cb-8068-64f7dc0ebbde.png)
+
 
 The essence of the application itself will be as follows:
 
@@ -55,9 +56,9 @@ It turns out that after processing we can only delete them.
 If we pay attention to the header, we can see a separate filtered list of all processed and unprocessed requests.
 
 Page of pending applications. (New applications):
-![image](https://user-images.githubusercontent.com/98006856/176594304-76435cb1-6bd8-496c-a014-10ea11286a78.png)
+![image](https://user-images.githubusercontent.com/98006856/176594680-e33794e5-918e-4eec-ad2c-ea004d5d7d24.png)
 Processed requests page. (Processed Applications):
-![image](https://user-images.githubusercontent.com/98006856/176594345-6e34713b-48c4-4aeb-ac74-28f57f5f0d39.png)
+![image](https://user-images.githubusercontent.com/98006856/176594661-eea7d401-5342-4959-b9c2-2c3a8a6491dc.png)
 
 In principle, these are all the main functionalities of this mini-project.
 
