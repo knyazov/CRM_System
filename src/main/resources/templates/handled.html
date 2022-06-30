@@ -23,7 +23,7 @@
                     <p><span th:text="${requests.commentary}"></span>
                     </p>
                     <br>
-                    <p class="fw-bold"><label for="">Тел:</label><span th:text="${requests.phone}" class="fw-bolder"></span>
+                    <p class="fw-bold"><label for="">Тел:</label><span class="fw-bolder" th:text="${requests.phone}"></span>
                         <a th:href="@{'/details/' + ${requests.id}}"> Подробнее
                         </a>
                     </p>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import systema.crm.entities.ApplicationRequest;
 import systema.crm.entities.Courses;
+import systema.crm.repositories.ApplicationRequestRepository;
 import systema.crm.repositories.CoursesRepository;
 import systema.crm.services.ApplicationRequestService;
 
@@ -19,11 +20,14 @@ public class Controllers {
     private ApplicationRequestService appRequestService;
 
     @Autowired
+    private ApplicationRequestRepository applicationRequestRepository;
+
+    @Autowired
     private CoursesRepository coursesRepository;
 
     @GetMapping(value = "/")
     private String indexPage(Model model) {
-        model.addAttribute("allRequests", appRequestService.getAllRequests());
+        model.addAttribute("allRequests", applicationRequestRepository.getAll());
         model.addAttribute("allCourses", appRequestService.getAllCourses());
         return "index";
     }
@@ -66,7 +70,9 @@ public class Controllers {
 
     @GetMapping(value = "/delete/{id}")
     private String delete(@PathVariable(name = "id") Long id) {
-        appRequestService.deleteRequest(id);
+        if (appRequestService.isExist(id)) {
+            appRequestService.deleteRequest(id);
+        }
         return "redirect:/";
     }
 
@@ -81,5 +87,19 @@ public class Controllers {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/handled/{handled}")
+    private String handledPage(Model model,
+                               @PathVariable(name = "handled") Boolean handled) {
+        if (handled == false) {
+            model.addAttribute("allRequests", applicationRequestRepository.findAllByHandledIsFalse());
+            model.addAttribute("allCourses", appRequestService.getAllCourses());
+            return "handled";
+        } else {
+            model.addAttribute("allRequests", applicationRequestRepository.findAllByHandledIsTrue());
+            model.addAttribute("allCourses", appRequestService.getAllCourses());
+            return "handled";
+        }
     }
 }

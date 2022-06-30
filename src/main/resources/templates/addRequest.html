@@ -17,10 +17,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <label>Выберите Курс: </label>
-                    <select name="courseName_id" class="form-select">
-                        <option th:each="course : ${allCourses}" th:text="${course.name}" th:value="${course.id}"></option>
-                    </select>
+                    <div class="col-12">
+                        <label>Выберите Курс: </label>
+                        <select name="courseName_id" class="form-select">
+                            <option th:each="course : ${allCourses}" th:text="${course.name}"
+                                    th:value="${course.id}"></option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -39,10 +42,14 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <textarea class="form-control" name="commentary"></textarea>
+                        <textarea rows="10" class="form-control" name="commentary"></textarea>
                     </div>
                 </div>
-                <button class="btn btn-success">Добавить Заявку</button>
+                <div class="row">
+                    <div class="col-12 p-3 mt-3 mb-3">
+                        <button class="btn btn-success">Добавить Заявку</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
