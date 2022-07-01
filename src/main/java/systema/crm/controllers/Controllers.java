@@ -92,14 +92,12 @@ public class Controllers {
     @GetMapping(value = "/handled/{handled}")
     private String handledPage(Model model,
                                @PathVariable(name = "handled") Boolean handled) {
-        if (handled == false) {
+        if (!handled) {
             model.addAttribute("allRequests", applicationRequestRepository.findAllByHandledIsFalse());
-            model.addAttribute("allCourses", appRequestService.getAllCourses());
-            return "handled";
         } else {
             model.addAttribute("allRequests", applicationRequestRepository.findAllByHandledIsTrue());
-            model.addAttribute("allCourses", appRequestService.getAllCourses());
-            return "handled";
         }
+        model.addAttribute("allCourses", appRequestService.getAllCourses());
+        return "handled";
     }
 }
