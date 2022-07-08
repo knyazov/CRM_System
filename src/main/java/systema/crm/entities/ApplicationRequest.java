@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "t_applicationRequest")
@@ -32,4 +33,7 @@ public class ApplicationRequest {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Courses courseName;
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    private List<Courses> courses;
 }

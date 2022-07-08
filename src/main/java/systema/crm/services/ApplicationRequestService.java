@@ -6,15 +6,17 @@ import systema.crm.entities.Courses;
 import java.util.List;
 
 public interface ApplicationRequestService {
-    ApplicationRequest addRequest(ApplicationRequest applicationRequest);
+    ApplicationRequest addRequest(ApplicationRequest applicationRequest, Long id);
 
     List<ApplicationRequest> getAllRequests();
 
     ApplicationRequest getRequestById(Long id);
 
-    ApplicationRequest saveRequest(ApplicationRequest applicationRequest);
+    void saveRequest(ApplicationRequest applicationRequest);
 
     void deleteRequest(Long id);
+
+    boolean trueRequest(Long id);
 
     boolean isExist(Long id);
 

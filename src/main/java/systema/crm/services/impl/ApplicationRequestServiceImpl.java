@@ -20,8 +20,15 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
     private CoursesRepository coursesRepository;
 
     @Override
-    public ApplicationRequest addRequest(ApplicationRequest applicationRequest) {
-        return appRepository.save(applicationRequest);
+    public ApplicationRequest addRequest(ApplicationRequest applicationRequest, Long id) {
+        if (coursesRepository.existsById(id)) {
+            Courses courseName = getCourse(id);
+            applicationRequest.setCourseName(courseName);
+            applicationRequest.setHandled(false);
+            saveRequest(applicationRequest);
+            return appRepository.save(applicationRequest);
+        }
+        return null;
     }
 
     @Override
@@ -35,13 +42,24 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
     }
 
     @Override
-    public ApplicationRequest saveRequest(ApplicationRequest applicationRequest) {
-        return appRepository.save(applicationRequest);
+    public void saveRequest(ApplicationRequest applicationRequest) {
+        appRepository.save(applicationRequest);
     }
 
     @Override
     public void deleteRequest(Long id) {
         appRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean trueRequest(Long id) {
+        if (isExist(id)) {
+            ApplicationRequest applicationRequest = getRequestById(id);
+            applicationRequest.setHandled(true);
+            saveRequest(applicationRequest);
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -3,10 +3,7 @@ package systema.crm.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import systema.crm.entities.ApplicationRequest;
 import systema.crm.entities.Courses;
 import systema.crm.repositories.ApplicationRequestRepository;
@@ -47,24 +44,9 @@ public class Controllers {
     }
 
     @PostMapping(value = "/addRequest")
-    private String addRequestDoPost(@RequestParam(name = "userName") String userName,
-                                    @RequestParam(name = "courseName_id") Long courseName_id,
-                                    @RequestParam(name = "phone") String phone,
-                                    @RequestParam(name = "commentary") String commentary) {
-
-        if (coursesRepository.existsById(courseName_id)) {
-            Courses courseName = appRequestService.getCourse(courseName_id);
-
-            ApplicationRequest applicationRequest = new ApplicationRequest();
-            applicationRequest.setUserName(userName);
-            applicationRequest.setCommentary(commentary);
-            applicationRequest.setPhone(phone);
-            applicationRequest.setCourseName(courseName);
-            applicationRequest.setHandled(false);
-
-            appRequestService.saveRequest(applicationRequest);
-        }
-
+    private String addRequestDoPost(@ModelAttribute("requestObj") ApplicationRequest requestObj,
+                                    @RequestParam(name = "courseName_id") Long courseName_id) {
+        appRequestService.addRequest(requestObj, courseName_id);
         return "redirect:/";
     }
 
@@ -78,14 +60,7 @@ public class Controllers {
 
     @PostMapping(value = "/trueRequest/{id}")
     private String trueRequestDoPost(@PathVariable(name = "id") Long id) {
-
-        if (appRequestService.isExist(id)) {
-            ApplicationRequest applicationRequest = appRequestService.getRequestById(id);
-            applicationRequest.setHandled(true);
-
-            appRequestService.saveRequest(applicationRequest);
-        }
-
+        boolean isHandled = appRequestService.trueRequest(id);
         return "redirect:/";
     }
 
