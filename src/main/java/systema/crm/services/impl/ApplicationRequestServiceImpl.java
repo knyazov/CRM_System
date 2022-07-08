@@ -6,6 +6,7 @@ import systema.crm.entities.ApplicationRequest;
 import systema.crm.entities.Courses;
 import systema.crm.repositories.ApplicationRequestRepository;
 import systema.crm.repositories.CoursesRepository;
+import systema.crm.repositories.OperatorsRepository;
 import systema.crm.services.ApplicationRequestService;
 
 import java.util.List;
@@ -19,16 +20,18 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
     @Autowired
     private CoursesRepository coursesRepository;
 
+    @Autowired
+    private OperatorsRepository operatorsRepository;
+
     @Override
-    public ApplicationRequest addRequest(ApplicationRequest applicationRequest, Long id) {
+    public void addRequest(ApplicationRequest applicationRequest, Long id) {
         if (coursesRepository.existsById(id)) {
             Courses courseName = getCourse(id);
             applicationRequest.setCourseName(courseName);
             applicationRequest.setHandled(false);
             saveRequest(applicationRequest);
-            return appRepository.save(applicationRequest);
+            appRepository.save(applicationRequest);
         }
-        return null;
     }
 
     @Override

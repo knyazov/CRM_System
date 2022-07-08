@@ -34,6 +34,6 @@ public class ApplicationRequest {
     @ManyToOne(fetch = FetchType.EAGER)
     private Courses courseName;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private List<Courses> courses;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Operators> operators;
 }

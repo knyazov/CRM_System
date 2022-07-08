@@ -6,7 +6,7 @@ import systema.crm.entities.Courses;
 import java.util.List;
 
 public interface ApplicationRequestService {
-    ApplicationRequest addRequest(ApplicationRequest applicationRequest, Long id);
+    void addRequest(ApplicationRequest applicationRequest, Long id);
 
     List<ApplicationRequest> getAllRequests();
 

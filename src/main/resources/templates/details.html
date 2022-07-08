@@ -54,11 +54,45 @@
                 </div>
                 <div class="row">
                     <div class="col-12 p-3 mt-3 mb-3">
-                        <button th:if="${request.handled!=true}" class="btn btn-success">Обработать Заявку</button>
+                        <button type="button" th:if="${request.handled!=true}" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Обработать Заявку</button>
                         <a th:href="@{'/delete/' + ${request.id}}" class="btn btn-danger float-end">Удалить</a>
                     </div>
                 </div>
-
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th> ВЫБРАТЬ </th>
+                                        <th> Имя </th>
+                                        <th> Фамилия </th>
+                                        <th> Департамент </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="op : ${operators}">
+                                        <td></td>
+                                        <td th:text="${op.name}"></td>
+                                        <td th:text="${op.surname}"></td>
+                                        <td th:text="${op.department}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Understood</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

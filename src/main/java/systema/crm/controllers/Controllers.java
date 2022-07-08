@@ -6,9 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import systema.crm.entities.ApplicationRequest;
 import systema.crm.entities.Courses;
+import systema.crm.entities.Operators;
 import systema.crm.repositories.ApplicationRequestRepository;
 import systema.crm.repositories.CoursesRepository;
+import systema.crm.repositories.OperatorsRepository;
 import systema.crm.services.ApplicationRequestService;
+
+import java.util.List;
 
 @Controller
 public class Controllers {
@@ -19,8 +23,6 @@ public class Controllers {
     @Autowired
     private ApplicationRequestRepository applicationRequestRepository;
 
-    @Autowired
-    private CoursesRepository coursesRepository;
 
     @GetMapping(value = "/")
     private String indexPage(Model model) {
