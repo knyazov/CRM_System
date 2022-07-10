@@ -124,7 +124,7 @@
                     <form th:action="@{'/unAssignOperators/'+${request.id}}" method="post">
                         <input type="hidden" name="requestId" th:value="${request.id}">
                         <input type="hidden" name="operatorId" th:value="${op.id}">
-                        <td><button class="btn btn-danger"> - </button></td>
+                        <td><button class="btn btn-danger"> X </button></td>
                         <td th:text="${op.name}"></td>
                         <td th:text="${op.surname}"></td>
                         <td th:text="${op.department}"></td>
