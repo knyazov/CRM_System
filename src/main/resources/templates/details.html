@@ -49,51 +49,90 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <textarea rows="10" class="form-control" name="commentary" th:text="${request.commentary}"></textarea>
+                        <textarea rows="10" class="form-control" name="commentary" th:text="${request.commentary}">
+
+                        </textarea>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12 p-3 mt-3 mb-3">
-                        <button type="button" th:if="${request.handled!=true}" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Обработать Заявку</button>
-                        <a th:href="@{'/delete/' + ${request.id}}" class="btn btn-danger float-end">Удалить</a>
-                    </div>
-                </div>
+
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="operatorsList" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
+                            <!--                            <form th:action="@{'/assignOperators/' + ${request.id}}" method="post">-->
                             <div class="modal-header">
                                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th> ВЫБРАТЬ </th>
-                                        <th> Имя </th>
-                                        <th> Фамилия </th>
-                                        <th> Департамент </th>
+                                        <th> ВЫБРАТЬ</th>
+                                        <th> Имя</th>
+                                        <th> Фамилия</th>
+                                        <th> Департамент</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="op : ${operators}">
-                                        <td></td>
+                                        <input type="hidden">
+                                        <input type="hidden" name="requestId" th:value="${request.id}">
+                                        <td>
+                                            <input type="checkbox" name="operatorId[]" th:value="${op.id}">
+                                        </td>
                                         <td th:text="${op.name}"></td>
                                         <td th:text="${op.surname}"></td>
                                         <td th:text="${op.department}"></td>
                                     </tr>
+
                                     </tbody>
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Understood</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-primary">Назначить</button>
                             </div>
+                            <!--                            </form>-->
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-12 p-3 mt-3 mb-3">
+                        <button type="button" th:if="${request.handled!=true}" class="btn btn-success"
+                                data-bs-toggle="modal" data-bs-target="#operatorsList">Обработать Заявку
+                        </button>
+                        <a th:href="@{'/delete/' + ${request.id}}" class="btn btn-danger float-end">Удалить</a>
+                    </div>
+                </div>
             </form>
+            <span  th:if="${request.handled==true}">
+                 <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th> Имя</th>
+                    <th> Фамилия</th>
+                    <th> Департамент</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="op : ${operatorsByReq}">
+                    <form th:action="@{'/unAssignOperators/'+${request.id}}" method="post">
+                        <input type="hidden" name="requestId" th:value="${request.id}">
+                        <input type="hidden" name="operatorId" th:value="${op.id}">
+                        <td><button class="btn btn-danger"> - </button></td>
+                        <td th:text="${op.name}"></td>
+                        <td th:text="${op.surname}"></td>
+                        <td th:text="${op.department}"></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+            </span>
         </div>
     </div>
 </div>

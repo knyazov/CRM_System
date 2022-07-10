@@ -2,6 +2,7 @@ package systema.crm.services;
 
 import systema.crm.entities.ApplicationRequest;
 import systema.crm.entities.Courses;
+import systema.crm.entities.Operators;
 
 import java.util.List;
 
@@ -27,4 +28,10 @@ public interface ApplicationRequestService {
     Courses saveCourses(Courses course);
 
     Courses getCourse(Long id);
+
+    void assignOperator(Long[] operatorId, Long requestId);
+    void unAssignOperator(Long operatorId, Long requestId);
+
+    List<Operators> getOperatorsByRequest(Long requestId);
+
 }

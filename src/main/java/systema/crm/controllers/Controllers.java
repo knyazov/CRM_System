@@ -23,6 +23,8 @@ public class Controllers {
     @Autowired
     private ApplicationRequestRepository applicationRequestRepository;
 
+    @Autowired
+    private OperatorsRepository operatorsRepository;
 
     @GetMapping(value = "/")
     private String indexPage(Model model) {
@@ -36,6 +38,8 @@ public class Controllers {
                            @PathVariable(name = "id") Long id) {
         model.addAttribute("allCourses", appRequestService.getAllCourses());
         model.addAttribute("request", appRequestService.getRequestById(id));
+        model.addAttribute("operatorsByReq", appRequestService.getOperatorsByRequest(id));
+        model.addAttribute("operators", operatorsRepository.findAll());
         return "details";
     }
 
@@ -54,16 +58,15 @@ public class Controllers {
 
     @GetMapping(value = "/delete/{id}")
     private String delete(@PathVariable(name = "id") Long id) {
-        if (appRequestService.isExist(id)) {
-            appRequestService.deleteRequest(id);
-        }
+        appRequestService.deleteRequest(id);
         return "redirect:/";
     }
 
     @PostMapping(value = "/trueRequest/{id}")
-    private String trueRequestDoPost(@PathVariable(name = "id") Long id) {
-        boolean isHandled = appRequestService.trueRequest(id);
-        return "redirect:/";
+    private String trueRequestDoPost(@PathVariable(name = "id") Long id,
+                                     @RequestParam(name = "operatorId[]") Long[] operatorId) {
+        appRequestService.assignOperator(operatorId, id);
+        return "redirect:/details/" + id;
     }
 
     @GetMapping(value = "/handled/{handled}")
@@ -76,5 +79,12 @@ public class Controllers {
         }
         model.addAttribute("allCourses", appRequestService.getAllCourses());
         return "handled";
+    }
+
+    @PostMapping(value = "/unAssignOperators/{id}")
+    private String unAssignOperators(@PathVariable(name = "id") Long requestId,
+                                     @RequestParam(name = "operatorId") Long operatorId) {
+        appRequestService.unAssignOperator(operatorId, requestId);
+        return "redirect:/details/" + requestId;
     }
 }
