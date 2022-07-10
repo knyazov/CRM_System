@@ -62,3 +62,37 @@ Processed requests page. (Processed Applications):
 
 In principle, these are all the main functionalities of this mini-project.
 
+
+We continue to work on the previous project. You will need to add a separate list of operators to the database. These operators will be some handlers of all applications.
+
+ 
+
+Operators.java
+
+- Long id;
+
+- Stringname;
+
+- String name;
+
+- String department; //IT, praja, marketing
+
+ 
+
+However, this will have to be done. One application can be processed by several operators. For example, one ticket will have 1 operator, another will have 3, and another will have 4, and so on. Plus, one operator can process several applications. Accordingly, you will need to build a link between the request tables and the operator through many-to-many.
+
+ 
+
+The assignment process will look like this:
+![image](https://user-images.githubusercontent.com/98006856/178149185-67f67a3c-112b-4573-b077-7dffb3f52652.png)
+
+![image](https://user-images.githubusercontent.com/98006856/178149194-61f3fcd6-e0e3-4169-8c31-b180547e19c8.png)
+
+After clicking on "Process Application" you will have a choice of operators:
+After clicking on "Assign", you will assign operators to this application. Moreover, the status of the application itself will become processed. And we will not be able to appoint anyone else to the application.
+
+ 
+
+As a result, we can see a list of all assigned operators.![image](https://user-images.githubusercontent.com/98006856/178149223-806c95fe-868a-404d-88c2-2445f5c3a720.png)
+
+They can also be deleted.
